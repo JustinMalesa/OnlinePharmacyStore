@@ -1,19 +1,14 @@
-<%-- 
-    Document   : login
-    Created on : 25 May 2026, 00:22:45
-    Author     : justi
---%>
-
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="jakarta.tags.core"%>
+<%@taglib prefix="fn" uri="jakarta.tags.functions"%>
 
 <!DOCTYPE html>
 <html>
 <head>
     <title>User Login</title>
     <link rel="stylesheet" href="css/style.css">
-    
+
     <style>
         .login-container {
             width: 350px;
@@ -40,6 +35,16 @@
             text-decoration: none;
             color: #3498db;
         }
+
+        .error-message {
+            color: red !important;
+            text-align: center;
+        }
+
+        .success-message {
+            color: #27ae60 !important;
+            text-align: center;
+        }
     </style>
 </head>
 
@@ -49,40 +54,30 @@
 
     <h1>User Login</h1>
 
-    <p class="success-message">
-        <c:out value="${message}"/>
-    </p>
+    <c:if test="${not empty message}">
+        <p class="${fn:contains(fn:toLowerCase(message), 'invalid') ? 'error-message' : 'success-message'}">
+            <c:out value="${message}"/>
+        </p>
+    </c:if>
 
     <form action="user" method="post">
 
-        <input type="hidden"
-               name="action"
-               value="login">
+        <input type="hidden" name="action" value="login">
 
         <label>Username</label>
-
-        <input type="text"
-               name="username"
-               required>
+        <input type="text" name="username" required>
 
         <label>Password</label>
+        <input type="password" name="password" required>
 
-        <input type="password"
-               name="password"
-               required>
-
-        <input type="submit"
-               value="Login"
-               class="btn">
+        <input type="submit" value="Login" class="btn">
 
     </form>
 
     <br>
 
     <div class="center">
-        <a href="register.jsp">
-            Create an account
-        </a>
+        <a href="register.jsp">Create an account</a>
     </div>
 
 </div>
